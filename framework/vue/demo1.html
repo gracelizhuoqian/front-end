@@ -1,0 +1,44 @@
+<!--
+ * @Description: v-if 简单demo
+ * @Author: jollyli
+ * @Date: 2020-09-15 11:09:11
+ * @Todo: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="child" v-if="show">这是子节点</div>
+    </div>
+    <script type="text/javascript">
+      const data = { show: false };
+      let showValue=false;
+      let childDom = document.querySelector('.child');
+      let showAttr = childDom.getAttribute('v-if');
+      let parentNode=childDom.parentElement;
+      Object.defineProperty(data, 'show', {
+        set(newV) {
+          updateDOM(newV);
+          showValue=newV;
+        },
+        get(){
+          return showValue;
+        }
+      });
+      const updateDOM = (newV) => {
+        if (newV) {
+          parentNode.append(childDom);
+        } else {
+          parentNode.removeChild(childDom);
+        }
+      };
+      updateDOM(data[showAttr]);
+      data[showAttr] = true;
+    </script>
+  </body>
+</html>
